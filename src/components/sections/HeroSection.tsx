@@ -1,6 +1,8 @@
+import Image from "next/image";
 import { SectionContainer } from "@/components/layout/SectionContainer";
 import { CTAButton } from "@/components/ui/CTAButton";
 import type { LinkTarget } from "@/features/portfolio/types";
+import mePhoto from "../../../Summary/me2.jpg";
 
 type HeroSectionProps = {
   id: string;
@@ -37,17 +39,16 @@ function HeroVisual({ visualVariant = "grid" }: { visualVariant?: "grid" | "diag
   }
 
   return (
-    <div className="relative h-64 rounded-2xl border border-white/10 bg-[color:var(--surface-700)] p-4 md:h-80 md:p-6">
-      <div className="grid h-full grid-cols-8 gap-2 rounded-xl border border-white/10 p-2">
-        {Array.from({ length: 48 }).map((_, idx) => (
-          <div
-            key={idx}
-            className="rounded-sm bg-white/5"
-            style={{ opacity: idx % 7 === 0 ? 0.55 : 0.22 }}
-          />
-        ))}
-      </div>
-      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_80%_20%,rgba(163,230,53,0.18),transparent_40%)]" />
+    <div className="relative h-64 overflow-hidden rounded-2xl border border-white/10 bg-[color:var(--surface-700)] md:h-80">
+      <Image
+        src={mePhoto}
+        alt="Portrait of Scott Armstrong-McIntosh"
+        fill
+        className="object-cover object-[center_74%]"
+        sizes="(max-width: 1024px) 100vw, 40vw"
+        priority
+      />
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_80%_20%,rgba(163,230,53,0.18),transparent_45%)]" />
     </div>
   );
 }
