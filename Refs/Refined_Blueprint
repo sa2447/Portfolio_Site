@@ -1,0 +1,404 @@
+# Refined Blueprint — Sage Archetype Portfolio
+
+## Purpose
+Build a portfolio homepage that communicates front-end depth in 10-15 seconds through clarity, precision, and calm visual authority.
+
+This document rewrites and QA-refines the original blueprint to be:
+- actionable for build execution
+- explicit for Desktop and Mobile behavior
+- aligned with a clean, efficient UX and engineering standards
+
+---
+
+## QA Summary of the Original Blueprint
+
+What was strong:
+- clear brand archetype and tone
+- coherent visual direction
+- strong emphasis on proof over decoration
+- sensible modern stack
+
+What needed refinement for execution:
+- missing concrete responsive rules (breakpoints, spacing, column collapse behavior)
+- no explicit content length constraints (headline/body limits)
+- no measurable acceptance criteria per section
+- no interaction/accessibility checklist mapped to components
+- no implementation sequence to reduce decision friction
+
+This refined version resolves those gaps.
+
+---
+
+## Product Goal
+
+A single-page portfolio that feels:
+- intelligent
+- minimal
+- architectural
+- calm
+- technically mature
+
+Primary user outcomes:
+1. Recruiter quickly understands specialty and quality.
+2. Hiring manager sees proof of advanced front-end capability.
+3. Visitor can reach GitHub, LinkedIn, and contact in one scan.
+
+Success signals:
+- core message understood in under 15 seconds
+- project proof blocks drive most click activity
+- no layout breaks from 320px mobile through large desktop
+
+---
+
+## Recommended Stack
+
+- Next.js (App Router)
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- shadcn/ui
+
+Performance baseline:
+- production build on by default
+- next/image for all imagery
+- route and component-level lazy loading where appropriate
+
+---
+
+## Visual System
+
+### Color Tokens
+Use one restrained accent only.
+
+- Background 900: #0B0D10
+- Background 800: #111315
+- Surface 700: #1A1D21
+- Surface 600: #20242A
+- Text Primary: #F5F7FA
+- Text Secondary: #A7B0BC
+- Text Muted: #6B7280
+- Accent: #A3E635
+
+Rules:
+- Accent appears only in links, active nav, focused controls, and small indicators.
+- Avoid full-screen saturated gradients.
+- Keep contrast WCAG AA minimum.
+
+### Typography
+Primary recommendation:
+- Headings: Geist or Satoshi
+- Body: Inter or IBM Plex Sans
+- Optional mono accent: JetBrains Mono (metadata only)
+
+Type scale guidance:
+- H1 desktop: 52-64px, mobile: 34-40px
+- H2 desktop: 32-40px, mobile: 26-30px
+- Body: 16-18px desktop, 15-16px mobile
+- Line length target: 55-75 characters desktop, 35-50 mobile
+
+### Spacing and Rhythm
+- Use 8px spacing system
+- Section vertical padding desktop: 96-140px
+- Section vertical padding mobile: 64-88px
+- Max content width: 1120-1200px
+
+---
+
+## Responsive Layout Rules (Desktop + Mobile)
+
+Breakpoints:
+- Mobile: 320-767px
+- Tablet: 768-1023px
+- Desktop: 1024-1439px
+- Wide: 1440px+
+
+Core behavior:
+- All 2-column sections collapse to single column below 1024px.
+- Reading/order on mobile always prioritizes text before decorative visuals.
+- Keep interactive targets at least 44x44px.
+- Sticky nav remains compact; no more than one row on mobile.
+- Avoid horizontal scroll at all breakpoints.
+
+Container rules:
+- Mobile horizontal padding: 16-20px
+- Tablet: 24-32px
+- Desktop: 40-64px
+
+---
+
+## Information Architecture
+
+Single-page section order:
+1. Hero
+2. Expertise
+3. Proof Block 1
+4. Proof Block 2
+5. Technical Philosophy
+6. Contact
+
+Navigation:
+- Sticky top nav with section anchors
+- Right side actions: GitHub, LinkedIn
+- Active section indicator via subtle accent underline or dot
+
+---
+
+## Section Specifications
+
+## 1) Hero
+
+Goal:
+State identity, value proposition, and tone immediately.
+
+Desktop layout:
+- 12-column grid
+- Left text: 7 columns
+- Right visual: 5 columns
+
+Mobile layout:
+- Single column
+- Headline -> supporting text -> CTA row -> visual
+
+Content constraints:
+- Headline max 10 words
+- Supporting paragraph max 24 words
+- CTA count: 2 primary actions + 1 secondary link max
+
+Suggested CTA set:
+- View Work
+- GitHub
+- LinkedIn
+
+Acceptance criteria:
+- First viewport includes identity, value statement, and at least one proof-path CTA.
+- No line wraps that create orphan single words in H1 on common mobile widths.
+
+## 2) Expertise
+
+Goal:
+Show capability breadth without logo clutter.
+
+Structure:
+- 3 capability groups: Front-End Engineering, UI Systems, Modern Web
+- Each group has 4-6 concise bullets
+
+Desktop layout:
+- 3 cards in a row
+
+Mobile layout:
+- stacked cards
+- 12-16px inner spacing consistency
+
+Interaction:
+- subtle border-lighten on hover/focus
+- optional mild elevation (2-4px transform max)
+
+Acceptance criteria:
+- Cards remain readable at 320px without text truncation.
+- Keyboard focus state visible and high contrast.
+
+## 3) Proof Blocks (Placeholder Mode)
+
+Goal:
+Reserve premium case-study space now, using filler content until final projects are ready.
+
+Required block anatomy:
+- Project label
+- Project name
+- Strategic description (1-2 sentences)
+- Key capabilities or metrics (3-5 points)
+- Stack tags
+- Large preview image
+- CTA: View Project, View Code
+
+Layout pattern:
+- Block 1: text left / preview right
+- Block 2: preview left / text right
+- Mobile: text first, image second for both
+
+Visual treatment:
+- large, cinematic frames (not small cards)
+- restrained gradient overlays only if they improve depth hierarchy
+- keep decorative layers subtle
+
+Placeholder content to use now:
+- Block 1 label: Featured Build
+- Block 1 name: Intelligent Interface System (Placeholder)
+- Block 1 description: A modular front-end architecture concept focused on clarity, speed, and scalable interaction patterns.
+- Block 1 capabilities: semantic search UI, progressive loading, responsive dashboard shell, accessible command actions
+- Block 1 stack tags: Next.js, TypeScript, Tailwind, Framer Motion
+
+- Block 2 label: Experimental Build
+- Block 2 name: Data-Driven Workspace (Placeholder)
+- Block 2 description: A high-density UI exploration for organizing data flows with smooth interaction and clean visual hierarchy.
+- Block 2 capabilities: adaptive charts region, filter state orchestration, keyboard-first controls, mobile-first card fallback
+- Block 2 stack tags: React, TypeScript, shadcn/ui, Recharts
+
+Placeholder asset rules:
+- Use neutral mock screenshots or gradient image placeholders with fixed aspect ratio.
+- Keep final dimensions stable to avoid layout shift when real assets are added.
+- Keep CTA targets visible, even if links are temporary (#).
+
+Acceptance criteria:
+- Each block clearly reads as a future case-study slot, not a tiny project card.
+- CTA buttons are visible without hunting.
+- Placeholder images are optimized and responsive with no CLS jumps.
+
+## 4) Technical Philosophy
+
+Goal:
+Signal engineering maturity and systems thinking.
+
+Content structure:
+- 1 headline sentence
+- 1 supporting paragraph
+- 4-6 principle bullets
+
+Suggested principles:
+- clarity over decoration
+- performance as UX
+- accessibility as baseline quality
+- systemized components over ad hoc styling
+- maintainability under growth
+
+Acceptance criteria:
+- Writing avoids buzzwords and cliches.
+- Scannable within one viewport on desktop.
+
+## 5) Contact
+
+Goal:
+Minimize conversion friction.
+
+Structure:
+- concise prompt line
+- GitHub, LinkedIn, optional email
+- minimal footer with build stack statement
+
+Acceptance criteria:
+- All external links include clear labels and hover/focus states.
+- Contact section is reachable in one tap from nav.
+
+---
+
+## Motion and Interaction System
+
+Motion principle:
+- atmospheric, restrained, intentional
+
+Use Framer Motion for:
+- fade/slide reveal on section entry
+- staggered text in hero (short sequence only)
+- subtle hover states on cards/buttons
+- optional low-amplitude parallax in hero visual
+
+Do not use:
+- bounce animations
+- large elastic easings
+- motion that delays content readability
+
+Performance rules:
+- respect prefers-reduced-motion
+- animation duration mostly 180-450ms
+- keep simultaneous animated elements low
+
+---
+
+## Accessibility and Quality Gates
+
+Required:
+- semantic landmarks: header, main, section, footer
+- keyboard navigation for all interactive elements
+- visible focus styles (2px min ring or equivalent)
+- color contrast WCAG AA
+- alt text on all meaningful images
+- skip-to-content link
+
+Lighthouse targets:
+- Performance: 90+
+- Accessibility: 95+
+- Best Practices: 90+
+- SEO: 90+
+
+Core Web Vitals intent:
+- LCP under 2.5s on average modern mobile
+- CLS under 0.1
+- INP under 200ms target
+
+---
+
+## Build Structure
+
+Suggested directories:
+
+src/
+  app/
+  components/
+    layout/
+    typography/
+    motion/
+    proof-blocks/
+    ui/
+  features/
+    hero/
+    expertise/
+    projects/
+    philosophy/
+    contact/
+  styles/
+  lib/
+
+Implementation order:
+1. Establish tokens, typography, and base layout grid.
+2. Build Hero and sticky nav.
+3. Build Expertise cards with keyboard/focus states.
+4. Build two Proof Blocks with responsive media.
+5. Build Philosophy and Contact.
+6. Add restrained motion.
+7. Run accessibility and performance QA pass.
+
+---
+
+## Copy Direction
+
+Tone:
+- precise
+- calm
+- confident
+- technical without jargon overload
+
+Avoid:
+- hype-heavy language
+- startup cliches
+- vague claims without proof
+
+Hero sample:
+- Headline: Designing modern interfaces with clarity, systems thinking, and precision.
+- Supporting: Front-end developer focused on intelligent UI architecture, performant experiences, and scalable interaction systems.
+
+---
+
+## Final QA Checklist (Ship Readiness)
+
+Layout:
+- No horizontal overflow at 320px, 375px, 768px, 1024px, 1440px
+- Section spacing consistency preserved across breakpoints
+- Proof blocks maintain hierarchy on both desktop and mobile
+
+Interaction:
+- All CTAs keyboard-accessible and visibly focused
+- Hover states never hide essential content
+- Reduced-motion mode remains polished
+
+Content:
+- Headlines concise and non-generic
+- Proof blocks present clear problem, solution, and stack
+- Contact paths obvious and immediate
+
+Performance:
+- Images optimized and lazy-loaded where below the fold
+- No unnecessary client-side heavy bundles in above-the-fold content
+- Lighthouse and CWV targets meet baseline
+
+If all checklist items pass, the blueprint is considered actionable, efficient, and clean across Desktop and Mobile.

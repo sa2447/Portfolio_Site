@@ -1,0 +1,121 @@
+# Codebase Summary
+
+## Overview
+This portfolio is a single-page Next.js App Router site with a data-driven section model and a calm, minimal visual system. The architecture emphasizes maintainability, responsive behavior, and deployability on Vercel.
+
+## Frameworks and Libraries Used
+
+### Next.js (App Router)
+How it is used:
+- Provides routing and page assembly through `src/app/layout.tsx` and `src/app/page.tsx`.
+- Handles production builds, static generation, and deployment compatibility with Vercel.
+- Uses Next metadata API in layout for document title/description.
+
+Why it was chosen:
+- First-class Vercel support.
+- Strong performance defaults and static prerendering.
+- Clean component organization with App Router.
+
+### React + TypeScript
+How it is used:
+- All UI is split into typed functional components under `src/components`.
+- Content contracts are defined in `src/features/portfolio/types.ts`.
+- Section content is centralized in `src/features/portfolio/content.ts`.
+
+Why it was chosen:
+- Type safety for content schema and component props.
+- Easy composability for section-based portfolio architecture.
+
+### Tailwind CSS (plus custom global tokens)
+How it is used:
+- Utility classes power component styling and responsive layout.
+- Design tokens are defined in `src/app/globals.css` (colors, spacing behavior).
+- Accent color is fixed to lime (`#A3E635`) per blueprint decisions.
+
+Why it was chosen:
+- Fast UI iteration and consistent spacing/layout primitives.
+- Easy responsive behavior across desktop/tablet/mobile.
+
+### Framer Motion
+How it is used:
+- Included as part of the planned motion system and design direction.
+- Current scrollytelling interaction is implemented with lightweight browser APIs and CSS transitions.
+
+Why it was chosen:
+- Provides room for richer controlled motion if deeper animation polish is added later.
+
+### Lucide React
+How it is used:
+- Installed for icon support in UI/navigation patterns.
+
+Why it was chosen:
+- Lightweight and consistent icon system.
+
+## Key Architectural Decisions
+
+### 1) Data-driven content model
+Decision:
+- Keep portfolio copy and link targets in one source file: `src/features/portfolio/content.ts`.
+
+Benefit:
+- Non-structural updates (links, text, project placeholders) are fast and low risk.
+
+### 2) Section-oriented component architecture
+Decision:
+- Build each homepage region as its own section component (`HeroSection`, `ExpertiseSection`, `ProofBlockSection`, `PhilosophySection`, `ContactSection`).
+
+Benefit:
+- Predictable structure, easier testing, and easy future section replacement.
+
+### 3) Reusable proof-block primitives
+Decision:
+- Separate proof-block internals into dedicated components (`FeatureList`, `StackTagList`, `ProofMediaFrame`, `ProofCTAGroup`).
+
+Benefit:
+- Consistent project presentation and easier migration from placeholders to real projects.
+
+### 4) Scrollytelling interaction model
+Decision:
+- Add a client-side `ScrollytellingController` that supports:
+  - normal scrolling
+  - keyboard cycling (`Space`) on desktop
+  - touch tap-to-advance on mobile
+
+Benefit:
+- Narrative flow between sections without removing default browser navigation behavior.
+
+### 5) Accessibility and interaction safeguards
+Decision:
+- Keep skip link navigation, focus ring styling, and avoid hijacking interactive controls during scrollytelling.
+- Email action in Contact copies to clipboard and shows confirmation feedback.
+
+Benefit:
+- Better keyboard usability and clear user feedback.
+
+### 6) Vercel deployment alignment
+Decision:
+- Keep default Next.js deployment path with static prerendering.
+- Keep image remote pattern configured for Unsplash assets in `next.config.ts`.
+
+Benefit:
+- Straightforward GitHub to Vercel CI/CD with minimal custom config.
+
+## Quality and Cleanup Pass Completed
+- Removed unused components:
+  - `src/components/motion/Reveal.tsx`
+  - `src/components/motion/StaggerGroup.tsx`
+  - `src/components/ui/IconLink.tsx`
+- Updated lint script to ESLint CLI over source files (`eslint src --ext .ts,.tsx`).
+- Added `src/types/styles.d.ts` and expanded tsconfig include patterns for `.d.ts` files.
+- Verified clean checks:
+  - lint passes
+  - production build passes
+  - editor diagnostics report no errors
+
+## Where to Update Live Portfolio Data
+- Primary source: `src/features/portfolio/content.ts`
+- Update here for:
+  - GitHub/LinkedIn URLs
+  - project demo/code links
+  - contact email address
+  - hero and section copy

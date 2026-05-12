@@ -1,0 +1,440 @@
+# Component Map — Matching Refined Blueprint and Wireframe
+
+## Purpose
+Translate the approved blueprint and wireframe into a build-ready component architecture.
+
+This map defines:
+- component hierarchy
+- responsibilities per component
+- props contracts
+- placeholder data model for current proof blocks
+
+---
+
+## Top-Level Page Composition
+
+Suggested page assembly order:
+1. SiteShell
+2. StickyHeader
+3. HeroSection
+4. ExpertiseSection
+5. ProofBlockSection (Block 1)
+6. ProofBlockSection (Block 2)
+7. PhilosophySection
+8. ContactSection
+9. SiteFooter
+
+---
+
+## Suggested File Map
+
+src/
+  app/
+    page.tsx
+  components/
+    layout/
+      SiteShell.tsx
+      SectionContainer.tsx
+      StickyHeader.tsx
+      SkipToContent.tsx
+      SiteFooter.tsx
+    navigation/
+      NavLinks.tsx
+      MobileNavSheet.tsx
+      ActiveSectionIndicator.tsx
+    sections/
+      HeroSection.tsx
+      ExpertiseSection.tsx
+      ProofBlockSection.tsx
+      PhilosophySection.tsx
+      ContactSection.tsx
+    proof-blocks/
+      ProofMediaFrame.tsx
+      StackTagList.tsx
+      FeatureList.tsx
+      ProofCTAGroup.tsx
+    ui/
+      CTAButton.tsx
+      IconLink.tsx
+      SurfaceCard.tsx
+      SectionHeading.tsx
+    motion/
+      Reveal.tsx
+      StaggerGroup.tsx
+  features/
+    portfolio/
+      content.ts
+      types.ts
+      selectors.ts
+
+---
+
+## Global Contracts
+
+In features/portfolio/types.ts
+
+export type LinkTarget = {
+  label: string;
+  href: string;
+  external?: boolean;
+  ariaLabel?: string;
+};
+
+export type StackTag = {
+  id: string;
+  label: string;
+};
+
+export type FeatureItem = {
+  id: string;
+  text: string;
+};
+
+---
+
+## Layout Components
+
+## SiteShell
+Responsibility:
+- wraps full page background, typography defaults, and max-width rhythm
+- places skip link and main landmark
+
+Props:
+- children: React.ReactNode
+
+## SectionContainer
+Responsibility:
+- consistent horizontal and vertical spacing across breakpoints
+- optional narrow mode for text-heavy sections
+
+Props:
+- id?: string
+- ariaLabel?: string
+- narrow?: boolean
+- className?: string
+- children: React.ReactNode
+
+## StickyHeader
+Responsibility:
+- desktop and mobile nav shell
+- active section state and top blur behavior
+
+Props:
+- links: LinkTarget[]
+- socialLinks: LinkTarget[]
+- activeSectionId?: string
+
+## SkipToContent
+Responsibility:
+- keyboard-only fast jump to main content
+
+Props:
+- targetId: string
+
+## SiteFooter
+Responsibility:
+- minimal build-stack statement and copyright/meta
+
+Props:
+- text: string
+
+---
+
+## Navigation Components
+
+## NavLinks
+Responsibility:
+- render anchor list for desktop and optional mobile variant
+
+Props:
+- links: LinkTarget[]
+- activeSectionId?: string
+- orientation?: "row" | "column"
+
+## MobileNavSheet
+Responsibility:
+- compact menu for mobile with section anchors and social links
+
+Props:
+- links: LinkTarget[]
+- socialLinks: LinkTarget[]
+- open: boolean
+- onOpenChange: (open: boolean) => void
+
+## ActiveSectionIndicator
+Responsibility:
+- lime accent underline or dot for current section
+
+Props:
+- active: boolean
+- mode?: "underline" | "dot"
+
+---
+
+## Section Components
+
+## HeroSection
+Responsibility:
+- headline, support copy, CTA row, ambient visual module
+- enforces copy length discipline
+
+Props:
+- id: string
+- headline: string
+- supportingText: string
+- ctas: LinkTarget[]
+- visualVariant?: "grid" | "diagram" | "wave"
+
+Acceptance notes:
+- mobile order is text then visual
+- max 3 CTA actions
+
+## ExpertiseSection
+Responsibility:
+- render three capability cards with concise bullets
+
+Props:
+- id: string
+- title: string
+- groups: {
+    id: string;
+    title: string;
+    bullets: string[];
+  }[]
+
+Acceptance notes:
+- card readability preserved at 320 width
+
+## ProofBlockSection
+Responsibility:
+- reusable proof block for both placeholder projects
+- supports alternating desktop media/text order
+
+Props:
+- id: string
+- label: string
+- name: string
+- description: string
+- features: FeatureItem[]
+- stack: StackTag[]
+- media: {
+    src: string;
+    alt: string;
+    aspectRatio: "16:10" | "16:9";
+  }
+- ctas: LinkTarget[]
+- desktopMediaSide: "left" | "right"
+
+Acceptance notes:
+- mobile is always text first, media second
+- cinematic section feel, not card grid
+
+## PhilosophySection
+Responsibility:
+- headline, support paragraph, principle list
+
+Props:
+- id: string
+- title: string
+- supportingText: string
+- principles: string[]
+
+Acceptance notes:
+- designed to scan in one desktop viewport
+
+## ContactSection
+Responsibility:
+- conversion-focused prompt and primary external links
+
+Props:
+- id: string
+- prompt: string
+- links: LinkTarget[]
+
+Acceptance notes:
+- action links obvious and reachable in one tap from nav
+
+---
+
+## Proof-Block Subcomponents
+
+## ProofMediaFrame
+Responsibility:
+- fixed-ratio media frame to prevent CLS
+- placeholder-friendly visual shell
+
+Props:
+- src: string
+- alt: string
+- aspectRatio: "16:10" | "16:9"
+- priority?: boolean
+
+## StackTagList
+Responsibility:
+- compact stack tags with consistent spacing
+
+Props:
+- tags: StackTag[]
+
+## FeatureList
+Responsibility:
+- concise capability bullets for proof blocks
+
+Props:
+- items: FeatureItem[]
+
+## ProofCTAGroup
+Responsibility:
+- primary and secondary CTA actions for each proof block
+
+Props:
+- links: LinkTarget[]
+
+---
+
+## Reusable UI Components
+
+## CTAButton
+Props:
+- label: string
+- href: string
+- variant?: "primary" | "secondary" | "ghost"
+- external?: boolean
+
+## IconLink
+Props:
+- href: string
+- label: string
+- icon: React.ReactNode
+- external?: boolean
+
+## SurfaceCard
+Props:
+- children: React.ReactNode
+- interactive?: boolean
+- className?: string
+
+## SectionHeading
+Props:
+- eyebrow?: string
+- title: string
+- subtitle?: string
+
+---
+
+## Motion Components
+
+## Reveal
+Responsibility:
+- section/item entry motion with reduced-motion guard
+
+Props:
+- children: React.ReactNode
+- delay?: number
+- y?: number
+
+## StaggerGroup
+Responsibility:
+- stagger within section only
+
+Props:
+- children: React.ReactNode
+- staggerMs?: number
+
+---
+
+## Content Source Model
+
+In features/portfolio/content.ts define one page-level content object:
+
+export type PortfolioPageContent = {
+  nav: LinkTarget[];
+  social: LinkTarget[];
+  hero: {
+    headline: string;
+    supportingText: string;
+    ctas: LinkTarget[];
+    visualVariant: "grid" | "diagram" | "wave";
+  };
+  expertise: {
+    title: string;
+    groups: {
+      id: string;
+      title: string;
+      bullets: string[];
+    }[];
+  };
+  proofBlocks: {
+    id: string;
+    label: string;
+    name: string;
+    description: string;
+    features: FeatureItem[];
+    stack: StackTag[];
+    media: {
+      src: string;
+      alt: string;
+      aspectRatio: "16:10" | "16:9";
+    };
+    ctas: LinkTarget[];
+    desktopMediaSide: "left" | "right";
+  }[];
+  philosophy: {
+    title: string;
+    supportingText: string;
+    principles: string[];
+  };
+  contact: {
+    prompt: string;
+    links: LinkTarget[];
+  };
+  footer: {
+    text: string;
+  };
+};
+
+---
+
+## Placeholder Proof Data (Current Phase)
+
+Proof block 1:
+- label: Featured Build
+- name: Intelligent Interface System (Placeholder)
+- description: A modular front-end architecture concept focused on clarity, speed, and scalable interaction patterns.
+- features: semantic search UI, progressive loading, responsive dashboard shell, accessible command actions
+- stack: Next.js, TypeScript, Tailwind, Framer Motion
+- desktopMediaSide: right
+
+Proof block 2:
+- label: Experimental Build
+- name: Data-Driven Workspace (Placeholder)
+- description: A high-density UI exploration for organizing data flows with smooth interaction and clean visual hierarchy.
+- features: adaptive charts region, filter state orchestration, keyboard-first controls, mobile-first card fallback
+- stack: React, TypeScript, shadcn/ui, Recharts
+- desktopMediaSide: left
+
+---
+
+## Page Assembly Contract
+
+In app/page.tsx, compose sections in this exact order:
+1. HeroSection
+2. ExpertiseSection
+3. ProofBlockSection (proofBlocks[0])
+4. ProofBlockSection (proofBlocks[1])
+5. PhilosophySection
+6. ContactSection
+
+Shared wrappers:
+- SiteShell wraps the full page
+- StickyHeader appears above main
+- SiteFooter appears after main content
+
+---
+
+## Implementation Notes
+
+- Keep accent token fixed to #A3E635 in theme variables.
+- Keep proof block media containers fixed-ratio to prevent layout shift when real images replace placeholders.
+- Maintain text-first ordering on mobile for both proof blocks regardless of desktop alternation.
+- Respect reduced-motion preferences in all animated components.

@@ -1,0 +1,215 @@
+# Wireframe Spec — Desktop and Mobile
+
+## Scope
+This spec defines a section-by-section wireframe for the homepage and maps each section to Desktop and Mobile structure, spacing, and behavior.
+
+Accent color is locked:
+- Accent: #A3E635
+
+---
+
+## Global Frame
+
+Desktop (1024px+):
+- max content width: 1200px
+- container horizontal padding: 48px (1024-1439), 64px (1440+)
+- section vertical rhythm: 112px baseline
+
+Mobile (320-767px):
+- container horizontal padding: 16px (320-374), 20px (375+)
+- section vertical rhythm: 72px baseline
+- all multi-column regions collapse to single column
+
+Shared:
+- sticky top nav
+- skip link at top
+- 8px spacing grid
+
+---
+
+## 0) Header / Sticky Nav
+
+Desktop wireframe:
+- Left: wordmark/name
+- Center: anchors (Hero, Expertise, Projects, Philosophy, Contact)
+- Right: GitHub, LinkedIn
+- Height: 64-72px
+
+Mobile wireframe:
+- Left: wordmark/name
+- Right: compact menu trigger + external icons
+- Anchors in a slide-over panel or compact dropdown
+- Height: 56-64px
+
+Behavior:
+- active section indicator uses lime accent under text or small dot
+- nav surface adds mild blur on scroll
+
+Acceptance:
+- one-row nav on mobile
+- all controls 44x44 minimum touch target
+
+---
+
+## 1) Hero
+
+Desktop wireframe (12-col):
+- Col 1-7: headline, supporting copy, CTA row
+- Col 8-12: ambient visual module (grid/diagram/wave)
+- Vertical align center in first viewport
+
+Mobile wireframe:
+- Stack order: headline -> support -> CTA row -> visual module
+- visual module capped height to avoid pushing CTA too far below fold
+
+Content bounds:
+- headline <= 10 words
+- supporting copy <= 24 words
+- CTA count <= 3
+
+Spacing:
+- Desktop: 24-32px between headline and support, 24px to CTA
+- Mobile: 16-20px between blocks
+
+---
+
+## 2) Expertise
+
+Desktop wireframe:
+- Section title row
+- 3 equal cards in one row
+- Each card: category title + 4-6 bullets
+
+Mobile wireframe:
+- Section title row
+- 3 cards stacked
+- card gap: 12-16px
+
+Card frame:
+- border + subtle surface lift
+- optional tiny top indicator line in lime on active/hover
+
+Acceptance:
+- no bullet clipping/truncation at 320px
+- focus ring clearly visible on interactive card elements
+
+---
+
+## 3) Proof Block 1 (Placeholder)
+
+Desktop wireframe:
+- Left 6 cols: label, project name, short description, feature bullets, stack tags, CTA row
+- Right 6 cols: large media frame (16:10 or 16:9)
+
+Mobile wireframe:
+- text stack first
+- media frame second
+- CTA row wraps to two lines only if needed
+
+Placeholder copy:
+- Label: Featured Build
+- Name: Intelligent Interface System (Placeholder)
+- Description: A modular front-end architecture concept focused on clarity, speed, and scalable interaction patterns.
+- Features: semantic search UI, progressive loading, responsive dashboard shell, accessible command actions
+- Stack: Next.js, TypeScript, Tailwind, Framer Motion
+
+Media placeholder spec:
+- neutral mock image or gradient panel
+- fixed ratio container to prevent CLS
+
+---
+
+## 4) Proof Block 2 (Placeholder)
+
+Desktop wireframe:
+- Left 6 cols: large media frame
+- Right 6 cols: label, project name, short description, feature bullets, stack tags, CTA row
+
+Mobile wireframe:
+- text stack first
+- media frame second
+
+Placeholder copy:
+- Label: Experimental Build
+- Name: Data-Driven Workspace (Placeholder)
+- Description: A high-density UI exploration for organizing data flows with smooth interaction and clean visual hierarchy.
+- Features: adaptive charts region, filter state orchestration, keyboard-first controls, mobile-first card fallback
+- Stack: React, TypeScript, shadcn/ui, Recharts
+
+Media placeholder spec:
+- same dimensions as block 1 for rhythm consistency
+- optional inner chrome frame for case-study feel
+
+---
+
+## 5) Technical Philosophy
+
+Desktop wireframe:
+- center-weighted content block
+- headline line
+- supporting paragraph
+- 2-column principles list (2-3 items each side)
+
+Mobile wireframe:
+- single-column stack
+- principles as compact bullet list
+
+Suggested principles:
+- clarity over decoration
+- performance as UX
+- accessibility as baseline quality
+- systemized components over ad hoc styling
+- maintainability under growth
+
+Acceptance:
+- readable in one viewport desktop
+- no jargon-heavy sentence blocks
+
+---
+
+## 6) Contact
+
+Desktop wireframe:
+- centered heading/prompt
+- row of primary links (GitHub, LinkedIn, Email optional)
+- minimal footer meta below
+
+Mobile wireframe:
+- same order, links stack or wrap
+- footer remains single concise line
+
+Acceptance:
+- contact actions obvious within 2 seconds of arriving in section
+- external links include visible focus and hover states
+
+---
+
+## Motion Wireframe Notes
+
+Section reveals:
+- slight fade + translateY (8-16px)
+- stagger only within a section, not across whole page
+
+Hover motion:
+- card elevate max 4px
+- timing 180-250ms
+
+Reduced motion:
+- keep opacity-only transitions or no movement
+
+---
+
+## QA Viewports
+
+Validate layout and spacing at:
+- 320x568
+- 375x812
+- 768x1024
+- 1024x768
+- 1440x900
+
+Pass conditions:
+- no horizontal scroll
+- no overlap between text and visuals
+- proof block hierarchy preserved
+- CTA/buttons usable by keyboard and touch
